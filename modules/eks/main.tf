@@ -1,3 +1,19 @@
+resource "aws_eks_access_entry" "github_actions" {
+  cluster_name  = var.cluster_name
+  principal_arn = "arn:aws:iam::084766854861:role/GithubActionsWorkflowRole"
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "github_actions_admin" {
+  cluster_name  = var.cluster_name
+  principal_arn = aws_eks_access_entry.github_actions.principal_arn
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+}
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
