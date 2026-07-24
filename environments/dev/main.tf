@@ -46,7 +46,6 @@ module "application" {
 
   # Ensure Helm only attempts deployment AFTER EKS is fully provisioned and ready
   depends_on = [
-    module.eks,
-    module.storage
+    module.eks
   ]
 }
