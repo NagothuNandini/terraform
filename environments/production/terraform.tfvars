@@ -1,19 +1,19 @@
-vpc_name     = "prod-env-vpc"
-vpc_cidr     = "10.1.0.0/16"
-public_subnets = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
-private_subnets = ["10.1.100.0/24", "10.1.101.0/24", "10.1.102.0/24", "10.1.103.0/24", "10.1.104.0/24"]
-environment = "dev"
-cluster_name              = "prod-eks-cluster"
-kubernetes_version        = "1.35"
-endpoint_public_access    = false
-endpoint_private_access   = true
-cluster_admin_permission  = false
+vpc_name                 = "prod-env-vpc"
+vpc_cidr                 = "10.1.0.0/16"
+public_subnets           = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
+private_subnets          = ["10.1.100.0/24", "10.1.101.0/24", "10.1.102.0/24", "10.1.103.0/24", "10.1.104.0/24"]
+environment              = "dev"
+cluster_name             = "prod-eks-cluster"
+kubernetes_version       = "1.35"
+endpoint_public_access   = false
+endpoint_private_access  = true
+cluster_admin_permission = false
 upgrade_policy = {
   support_type = "EXTENDED"
 }
-service_cidr    = "172.20.0.0/16"
-enable_irsa     = true
-create_kms_key  = true
+service_cidr   = "172.20.0.0/16"
+enable_irsa    = true
+create_kms_key = true
 managed_node_groups = {
   general = {
     name           = "general-ng"
@@ -30,7 +30,7 @@ fargate_profiles = {
     name = "default-fg"
     selectors = [{
       namespace = "default"
-   }]
+    }]
   },
   test = {
     name = "test-fg"

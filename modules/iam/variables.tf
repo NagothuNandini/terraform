@@ -1,4 +1,4 @@
 variable "cluster_name" {
-  type = string
+  type        = string
   description = "The name of the cluster to which this irsa is created"
 }

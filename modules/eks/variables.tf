@@ -77,7 +77,7 @@ variable "managed_node_groups" {
     min_size       = number
     max_size       = number
     desired_size   = number
-    ami_id = optional(string)
+    ami_id         = optional(string)
     instance_types = optional(list(string))
     capacity_type  = optional(string, "ON_DEMAND")
     disk_size      = optional(number)
