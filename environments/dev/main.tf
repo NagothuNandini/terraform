@@ -36,8 +36,6 @@ module "eks" {
   depends_on = [module.vpc_dev]
 }
 
-<<<<<<< HEAD
-=======
 module "storage" {
   source = "../../modules/storage"
 
@@ -46,7 +44,6 @@ module "storage" {
   cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
 
 }
->>>>>>> c579354177083d791ce407128cd4887b61a63520
 
 module "application" {
   source = "../../modules/application"
