@@ -1,4 +1,4 @@
-module "vpc_dev" {
+module "vpc" {
   source = "../../modules/vpc"
 
   # Customer Input Values
@@ -10,7 +10,7 @@ module "vpc_dev" {
 }
 
 module "eks" {
-  source = "../..//modules/eks"
+  source = "../../modules/eks"
 
   cluster_name             = var.cluster_name
   kubernetes_version       = var.kubernetes_version
@@ -22,13 +22,24 @@ module "eks" {
   enable_irsa              = var.enable_irsa
   create_kms_key           = var.create_kms_key
   environment              = var.environment
-
-  vpc_id          = module.vpc_dev.vpc_id
-  private_subnets = module.vpc_dev.private_subnet_ids
+  vpc_id                   = module.vpc.vpc_id
+  private_subnets          = module.vpc.private_subnet_ids
 
   managed_node_groups = var.managed_node_groups
-  fargate_profiles    = var.fargate_profiles
 
-  depends_on = [module.vpc_dev]
+  depends_on = [module.vpc]
 }
 
+
+module "application" {
+  source = "../../modules/application"
+
+  eks_endpoint           = module.eks.cluster_endpoint
+  cluster_ca_certificate = module.eks.cluster_certificate_authority_data
+  cluster_token          = module.eks.cluster_auth_token
+
+  # Ensure Helm only attempts deployment AFTER EKS is fully provisioned and ready
+  depends_on = [
+    module.eks
+  ]
+}

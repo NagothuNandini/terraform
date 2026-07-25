@@ -94,12 +94,3 @@ variable "managed_node_groups" {
   default = {}
 }
 
-variable "fargate_profiles" {
-  type = map(object({
-    name = optional(string)
-    selectors = list(object({
-      namespace = string
-    }))
-  }))
-}
-

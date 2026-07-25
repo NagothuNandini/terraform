@@ -34,7 +34,6 @@ variable "endpoint_public_access" {
   type        = bool
 }
 
-
 variable "endpoint_private_access" {
   description = "Whether the EKS private API server endpoint is enabled"
   type        = bool
@@ -95,22 +94,3 @@ variable "managed_node_groups" {
   default = {}
 }
 
-variable "fargate_profiles" {
-  type = map(object({
-    name = optional(string)
-    selectors = list(object({
-      namespace = string
-    }))
-  }))
-}
-
-
-variable "access_entries" {
-  type = map(object({
-    principal_arn = string
-    policy_arn    = string
-    scope_type    = string
-    namespaces    = optional(list(string), [])
-  }))
-  default = {}
-}
