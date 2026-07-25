@@ -14,7 +14,7 @@ resource "aws_s3_bucket" "terraform_state" {
 
 resource "aws_s3_bucket_versioning" "terraform_state" {
   for_each = aws_s3_bucket.terraform_state
-  bucket = each.value.id
+  bucket   = each.value.id
 
   versioning_configuration {
     status = "Enabled"
@@ -23,7 +23,7 @@ resource "aws_s3_bucket_versioning" "terraform_state" {
 
 resource "aws_s3_bucket_public_access_block" "terraform_state" {
   for_each = aws_s3_bucket.terraform_state
-  bucket = each.value.id
+  bucket   = each.value.id
 
   block_public_acls       = true
   block_public_policy     = true
