@@ -47,7 +47,7 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
       - name: Terraform Plan 
-        run: terraform plan -target=module.vpc && terraform plan -no-color -out=tfplan
+        run: terraform plan -no-color -out=tfplan
       - name: Publish Plan
         run: |
           echo "## Terraform Plan - ${{ matrix.env }}" >> $GITHUB_STEP_SUMMARY
