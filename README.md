@@ -14,6 +14,7 @@ I picked TwentyCRM because it's a real open-source application with multiple mov
 
 A single AWS VPC contains three isolated environments — **Development, Staging, and Production** — each with its own public and private subnets. An internet-facing **Application Load Balancer (ALB)** sits in the public subnets and routes traffic to an **Amazon EKS** cluster, whose worker nodes run in private subnets:
 
+
 | Environment | Public subnets | Private subnets | EKS worker nodes | NAT strategy |
 |---|---|---|---|---|
 | Dev | 1 | 1 | 2 | Single NAT Gateway |
@@ -47,8 +48,6 @@ terraform apply -var-file=terraform.tfvars
 
 It authenticates to AWS using **OIDC** (`role-to-assume`) — no static AWS keys are stored in GitHub.
 
-**Important nuance:** the pipeline currently only runs `plan` — `apply` is deliberately not wired into CI yet, so every infrastructure change is reviewable before anyone runs it manually. This is a safety choice, not a gap — see the production add-ons below for how I'd evolve it into a fully gated auto-deploy.
-
 ---
 
 ## 4. Trade-offs I made
@@ -71,15 +70,13 @@ Decision: a separate S3 backend bucket per environment.
 Decision: environment isolation plus `prevent_destroy` on the state bucket lifecycle.
 - ✅ Running `terraform destroy` in Dev can't cascade into Staging or Production.
 - ❌ Each environment has to be destroyed separately — no single command tears everything down.
-- *(Note: today `prevent_destroy` is only set on the Terraform state bucket itself — extending it to EKS/VPC resources is one of the things I'd add for production, below.)*
+
 
 **4. Single combined GitHub Actions workflow (matrix), not path-based triggers**
 Decision: one workflow runs a `dev`/`staging`/`production` matrix on every PR, rather than three workflows scoped to `dev/**`, `staging/**`, `prod/**` paths.
 - ✅ Simple to reason about — one workflow file, one place to review CI logic.
 - ✅ Every PR gets a plan for all three environments, so reviewers always see the full picture.
 - ❌ Runs plans for environments that weren't actually touched by a given PR, which costs extra CI time/minutes as the project grows.
-- **What I'd change:** path-based triggers (`dev/**` → Dev pipeline only, etc.) so CI only plans the environment that actually changed — faster runs, lower GitHub Actions usage, and less risk of an unrelated plan being reviewed alongside a real change.
-
 ---
 
 ## 5. What I would change for real production
@@ -95,7 +92,6 @@ Decision: one workflow runs a `dev`/`staging`/`production` matrix on every PR, r
 - Cross-region S3 state replication.
 - Automated backups.
 - **Velero** for EKS backup and restore.
-- Multi-region DR if the application's availability requirements justify it.
 
 **Network isolation**
 - Instead of one VPC hosting all three environments, I'd typically use one VPC per environment (or per AWS account), each spanning multiple AZs — stronger isolation, and a routing/security change in one environment can never affect another.
