@@ -18,15 +18,15 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
-  cluster_name               = var.cluster_name
+  cluster_name    = var.cluster_name
   cluster_version = var.kubernetes_version
 
   cluster_endpoint_public_access  = var.endpoint_public_access
   cluster_endpoint_private_access = var.endpoint_private_access
 
   enable_cluster_creator_admin_permissions = var.cluster_admin_permission
-  cluster_upgrade_policy                           = var.upgrade_policy
-  cluster_service_ipv4_cidr                        = var.service_cidr
+  cluster_upgrade_policy                   = var.upgrade_policy
+  cluster_service_ipv4_cidr                = var.service_cidr
 
   cluster_addons = {
     coredns                = {}

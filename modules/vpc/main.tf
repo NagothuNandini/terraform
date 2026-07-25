@@ -18,10 +18,10 @@ locals {
 
 
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-
-  name = var.vpc_name
-  cidr = var.vpc_cidr
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 5.19"
+  name    = var.vpc_name
+  cidr    = var.vpc_cidr
 
 
   azs             = slice(data.aws_availability_zones.available.names, 0, length(var.public_subnets))
