@@ -17,6 +17,6 @@ output "cluster_auth_token" {
 }
 
 output "oidc_provider_arn" {
-  value        = module.eks.oidc_provider_arn
-  description  = "EKS Clusters oidc provider arn"
+  value       = module.eks.oidc_provider_arn
+  description = "EKS Clusters oidc provider arn"
 }

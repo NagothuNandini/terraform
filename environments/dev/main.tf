@@ -41,10 +41,10 @@ module "application" {
 module "alb" {
   source = "../../modules/alb"
 
-  env_name           = var.environment
-  oidc_provider_arn  = module.eks.oidc_provider_arn
-  vpc_id             = module.vpc_dev.vpc_id
-  eks_name           = var.cluster_name
+  env_name          = var.environment
+  oidc_provider_arn = module.eks.oidc_provider_arn
+  vpc_id            = module.vpc_dev.vpc_id
+  eks_name          = var.cluster_name
 }
 
 
