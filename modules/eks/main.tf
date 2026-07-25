@@ -33,7 +33,7 @@ module "eks" {
     kube-proxy             = {}
     vpc-cni                = { before_compute = true }
     eks-pod-identity-agent = { before_compute = true }
-
+  }
   enable_irsa    = var.enable_irsa
   create_kms_key = var.create_kms_key
 
