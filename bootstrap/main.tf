@@ -5,7 +5,7 @@ locals {
 resource "aws_s3_bucket" "terraform_state" {
   for_each = toset(local.environments)
 
-  bucket = "${each.key}-terraform-state"
+  bucket = "nandini-${each.key}-terraform-state"
 
   lifecycle {
     prevent_destroy = true
