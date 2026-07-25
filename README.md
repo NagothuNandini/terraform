@@ -12,6 +12,8 @@ I picked TwentyCRM because it's a real open-source application with multiple mov
 
 ## 2. AWS architecture — and why I designed it this way
 
+![AWS Architecture](images/aws-architecture.png)
+
 A single AWS VPC contains three isolated environments — **Development, Staging, and Production** — each with its own public and private subnets. An internet-facing **Application Load Balancer (ALB)** sits in the public subnets and routes traffic to an **Amazon EKS** cluster, whose worker nodes run in private subnets:
 
 
