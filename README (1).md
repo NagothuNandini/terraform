@@ -12,8 +12,9 @@ I picked TwentyCRM because it's a real open-source application with multiple mov
 
 ## 2. AWS architecture — and why I designed it this way
 
-A single AWS VPC contains three isolated environments — **Development, Staging, and Production** — each with its own public and private subnets. An internet-facing **Application Load Balancer (ALB)** sits in the public subnets and routes traffic to an **Amazon EKS** cluster, whose worker nodes run in private subnets:
+![AWS architecture diagram](images/aws-architecture.png)
 
+A single AWS VPC contains three isolated environments — **Development, Staging, and Production** — each with its own public and private subnets. An internet-facing **Application Load Balancer (ALB)** sits in the public subnets and routes traffic to an **Amazon EKS** cluster, whose worker nodes run in private subnets:
 
 | Environment | Public subnets | Private subnets | EKS worker nodes | NAT strategy |
 |---|---|---|---|---|
@@ -71,12 +72,12 @@ Decision: environment isolation plus `prevent_destroy` on the state bucket lifec
 - ✅ Running `terraform destroy` in Dev can't cascade into Staging or Production.
 - ❌ Each environment has to be destroyed separately — no single command tears everything down.
 
-
 **4. Single combined GitHub Actions workflow (matrix), not path-based triggers**
 Decision: one workflow runs a `dev`/`staging`/`production` matrix on every PR, rather than three workflows scoped to `dev/**`, `staging/**`, `prod/**` paths.
 - ✅ Simple to reason about — one workflow file, one place to review CI logic.
 - ✅ Every PR gets a plan for all three environments, so reviewers always see the full picture.
 - ❌ Runs plans for environments that weren't actually touched by a given PR, which costs extra CI time/minutes as the project grows.
+
 ---
 
 ## 5. What I would change for real production
