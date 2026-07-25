@@ -19,7 +19,7 @@ module "eks" {
   version = "~> 20.0"
 
   cluster_name               = var.cluster_name
-  cluster__version = var.kubernetes_version
+  cluster_version = var.kubernetes_version
 
   cluster_endpoint_public_access  = var.endpoint_public_access
   cluster_endpoint_private_access = var.endpoint_private_access
