@@ -22,7 +22,6 @@ module "eks" {
   enable_irsa              = var.enable_irsa
   create_kms_key           = var.create_kms_key
   environment              = var.environment
-  ebs_csi_driver_arn       = module.iam.ebs_csi_driver_arn
   vpc_id                   = module.vpc_dev.vpc_id
   private_subnets          = module.vpc_dev.private_subnet_ids
 
