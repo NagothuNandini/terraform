@@ -44,6 +44,6 @@ module "alb" {
 
   env_name          = var.environment
   oidc_provider_arn = module.eks.oidc_provider_arn
-  vpc_id            = module.vpc_dev.vpc_id
+  vpc_id            = module.vpc.vpc_id
   eks_name          = var.cluster_name
 }
