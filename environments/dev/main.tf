@@ -27,7 +27,6 @@ module "eks" {
 
   managed_node_groups = var.managed_node_groups
 
-  depends_on = [module.vpc_dev]
 }
 
 
