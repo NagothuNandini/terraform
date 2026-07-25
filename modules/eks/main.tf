@@ -34,14 +34,6 @@ module "eks" {
     vpc-cni                = { before_compute = true }
     eks-pod-identity-agent = { before_compute = true }
 
-    aws-ebs-csi-driver = {
-      pod_identity_association = [{
-        role_arn        = var.ebs_csi_driver_arn
-        service_account = "ebs-csi-controller-sa"
-      }]
-    }
-  }
-
   enable_irsa    = var.enable_irsa
   create_kms_key = var.create_kms_key
 

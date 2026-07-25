@@ -65,10 +65,6 @@ variable "environment" {
   type        = string
 }
 
-variable "ebs_csi_driver_arn" {
-  type        = string
-  description = "IAM role ARN for EBS CSI driver pod identity association"
-}
 
 variable "managed_node_groups" {
   description = "Map of EKS managed node group configurations"
