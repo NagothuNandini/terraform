@@ -33,12 +33,18 @@ module "eks" {
 module "application" {
   source = "../../modules/application"
 
-  eks_endpoint           = module.eks.cluster_endpoint
-  cluster_ca_certificate = module.eks.cluster_certificate_authority_data
-  cluster_token          = module.eks.cluster_auth_token
-
-  # Ensure Helm only attempts deployment AFTER EKS is fully provisioned and ready
   depends_on = [
     module.eks
   ]
 }
+
+module "alb" {
+  source = "../../modules/alb"
+
+  env_name           = var.environment
+  oidc_provider_arn  = module.eks.oidc_provider_arn
+  vpc_id             = module.vpc_dev.vpc_id
+  eks_name           = var.cluster_name
+}
+
+

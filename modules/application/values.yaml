@@ -64,5 +64,6 @@ redis:
 
 
 ingress:
-  enabled: false
+  enabled: true
+  class: alb
 
