@@ -1,4 +1,3 @@
-
 image: twentycrm/twenty:latest
 
 # A list of env that can be set:
@@ -10,16 +9,16 @@ env:
   LOGIN_TOKEN_EXPIRES_IN: 1h
 
 secrets:
-  # appToken:
-  # accessToken:
-  # loginToken:
-  # refreshToken:
-  # fileToken:
+  appToken: "TueRippCNQYc190gdeAABwwxVdMfpl07uwNFjFQ0CtE="
+  accessToken: "U9U0IbuNBiaUM4M7PTKqmXX3R1a/xHWGEsC7wSbJnA8="
+  loginToken: "wjVNy5+MZJ4WeRSe+GjF0TcJsD0bYG158ttKjulWVPo="
+  refreshToken: "HRppVAOuJtCVCd51EaJ8VIE+ybpRmDfuODjESE2x9jk="
+  fileToken: "4r7zZyaY9/35pd8o3BMf6sWLlLr5dqOsFOLhk9yiY0g="
 
 
 server:
   replicas: 1
-  storage: 5Gi
+  storage: 2Gi
   #storageClassName:
   resources:
     requests:
@@ -36,8 +35,8 @@ worker:
 db:
   enabled: true
   image: twentycrm/twenty-postgres:latest
-  storage: 5Gi
-  #storageClassName:
+  storage: 2Gi
+  storageClassName: gp2
 
   #adminPassword: some-random-string
 
@@ -66,5 +65,4 @@ redis:
 
 ingress:
   enabled: true
-  host: crm.example.com
-  class: nginx
+  class: alb
