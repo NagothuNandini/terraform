@@ -19,7 +19,7 @@ secrets:
 server:
   replicas: 1
   storage: 2Gi
-  #storageClassName:
+  storageClassName: gp2
   resources:
     requests:
       memory: "128Mi"
