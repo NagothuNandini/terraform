@@ -19,7 +19,6 @@ secrets:
 server:
   replicas: 1
   storage: 2Gi
-  storageClassName: gp2
   resources:
     requests:
       memory: "128Mi"
@@ -36,7 +35,6 @@ db:
   enabled: true
   image: twentycrm/twenty-postgres:latest
   storage: 2Gi
-  storageClassName: gp2
 
   #adminPassword: some-random-string
 
